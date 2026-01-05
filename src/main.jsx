@@ -7,13 +7,19 @@ import 'primeicons/primeicons.css';
 import 'leaflet/dist/leaflet.css';
 import { performanceMonitor } from './utils/performance.js';
 
+// Log environment for debugging
+console.log('Environment:', import.meta.env.MODE);
+console.log('Base URL:', import.meta.env.BASE_URL);
+
 // Initialize performance monitoring
 performanceMonitor;
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
-  document.body.innerHTML = '<div style="color: red; padding: 20px;">Root element not found!</div>';
+  console.error('Root element not found!');
+  document.body.innerHTML = '<div style="color: red; padding: 20px; font-family: sans-serif;"><h1>Error: Root element not found!</h1><p>Check console for details.</p></div>';
 } else {
+  console.log('Root element found, starting React app...');
   try {
     createRoot(rootElement).render(
       <StrictMode>
@@ -22,9 +28,15 @@ if (!rootElement) {
         </ErrorBoundary>
       </StrictMode>,
     )
+    console.log('React app rendered successfully!');
   } catch (error) {
     console.error('Failed to render app:', error);
-    rootElement.innerHTML = `<div style="color: red; padding: 20px;">Error: ${error.message}</div>`;
+    rootElement.innerHTML = `<div style="color: red; padding: 20px; font-family: sans-serif;">
+      <h1>Error Loading Application</h1>
+      <p><strong>Error:</strong> ${error.message}</p>
+      <p><strong>Stack:</strong></p>
+      <pre style="background: #f5f5f5; padding: 10px; overflow: auto;">${error.stack}</pre>
+    </div>`;
   }
 }
 
