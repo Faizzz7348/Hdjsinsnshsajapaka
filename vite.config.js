@@ -188,9 +188,6 @@ export default defineConfig({
     strictPort: false,
     host: true
   },
-  // Performance hints
-  performance: {
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000
-  }
+  // Base path untuk production
+  base: '/'
 })
